@@ -1,6 +1,6 @@
 {
   "name": "@m9ch/vue-forward-ref",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Portal `React.forwardRef` api into Vue",
   "license": "MIT",
   "exports": {
