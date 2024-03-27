@@ -20,7 +20,8 @@
     "build:stub": "unbuild --stub",
     "dev": "vite example/ -c vite.config.js",
     "test": "vitest run",
-    "release": "bumpp package.json && pnpm publish"
+    "release": "bumpp package.json && pnpm publish",
+    "prepublishOnly": "pnpm build"
   },
   "peerDependencies": {
     "vue": "^2.7 || ^3.0.0-0"
