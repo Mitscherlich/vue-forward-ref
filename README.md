@@ -1,30 +1,43 @@
-# my-ts-lib
+# @m9ch/vue-forward-ref
 
-[![npm version](https://badgen.net/npm/v/my-ts-lib)](https://npm.im/my-ts-lib) [![npm downloads](https://badgen.net/npm/dm/my-ts-lib)](https://npm.im/my-ts-lib)
-
-## Using this template
-
-- Search `my-ts-lib` and replace it with your custom package name.
-
-Features:
-
-- Package manager [pnpm](https://pnpm.js.org/), safe and fast
-- Release with [semantic-release](https://npm.im/semantic-release)
-- Bundle with [unbuild](https://github.com/unjs/unbuild)
-- Test with [vitest](https://vitest.dev)
-
-To skip CI (GitHub action), add `skip-ci` to commit message. To skip release, add `skip-release` to commit message.
+[![npm version](https://badgen.net/npm/v/@m9ch/vue-forward-ref)](https://npm.im/@m9ch/vue-forward-ref) [![npm downloads](https://badgen.net/npm/dm/@m9ch/vue-forward-ref)](https://npm.im/@m9ch/vue-forward-ref)
 
 ## Install
 
 via `pnpm`, `yarn` or `npm`:
 
 ```bash
-pnpm add my-ts-lib
+pnpm add @m9ch/vue-forward-ref
 # or
-yarn add my-ts-lib
+yarn add @m9ch/vue-forward-ref
 # or
-npm i -S my-ts-lib
+npm i -S @m9ch/vue-forward-ref
+```
+
+## How to use
+
+```typescript
+import { forwardRef } from '@m9ch/vue-forward-ref'
+
+const Comp = defineComponent((props, ctx) => {
+  ctx.expose({ foo: 'bar' })
+
+  return () => <div>{props.message}</div>
+})
+
+const Wrap = forwardRef((props, { slots }, ref) => {
+  return <Comp {...props} ref={ref} v-slots={slots} />
+})
+
+const App = defineComponent(() => {
+  const cmpRef = ref(null)
+
+  onMounted(() => {
+    console.log(cmpRef.value.foo) // => 'bar'
+  })
+
+  return () => <Wrap message="Hello" ref={cmpRef} />
+})
 ```
 
 ## License
