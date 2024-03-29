@@ -1,23 +1,23 @@
-# @m9ch/vue-forward-ref
+# v-forward-ref
 
-[![npm version](https://badgen.net/npm/v/@m9ch/vue-forward-ref)](https://npm.im/@m9ch/vue-forward-ref) [![npm downloads](https://badgen.net/npm/dm/@m9ch/vue-forward-ref)](https://npm.im/@m9ch/vue-forward-ref)
+[![npm version](https://badgen.net/npm/v/v-forward-ref)](https://npm.im/v-forward-ref) [![npm downloads](https://badgen.net/npm/dm/v-forward-ref)](https://npm.im/v-forward-ref)
 
 ## Install
 
 via `pnpm`, `yarn` or `npm`:
 
 ```bash
-pnpm add @m9ch/vue-forward-ref
+pnpm add v-forward-ref
 # or
-yarn add @m9ch/vue-forward-ref
+yarn add v-forward-ref
 # or
-npm i -S @m9ch/vue-forward-ref
+npm i -S v-forward-ref
 ```
 
 ## How to use
 
 ```typescript
-import { forwardRef } from '@m9ch/vue-forward-ref'
+import { forwardRef } from 'v-forward-ref'
 
 const Comp = defineComponent((props, ctx) => {
   ctx.expose({ foo: 'bar' })
