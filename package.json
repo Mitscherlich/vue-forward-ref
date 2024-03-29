@@ -2,7 +2,13 @@
   "name": "v-forward-ref",
   "version": "0.1.2",
   "description": "Portal `React.forwardRef` api into Vue",
+  "author": "Mitscherlich <mitscherlich36@gmail.com>",
   "license": "MIT",
+  "homepage": "https://github.com/Mitscherlich/vue-forward-ref#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mitscherlich/vue-forward-ref"
+  },
   "exports": {
     "types": "./dist/index.d.ts",
     "require": "./dist/index.cjs",
