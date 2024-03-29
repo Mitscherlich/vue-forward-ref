@@ -1,4 +1,4 @@
-import type { EmitsOptions, ObjectEmitsOptions, SetupContext, SlotsType } from 'vue-demi'
+import type { EmitsOptions, ObjectEmitsOptions, SetupContext, SlotsType } from 'vue'
 import { defineComponent, getCurrentInstance } from 'vue-demi'
 
 type IfAny<T, Y, N> = 0 extends 1 & T ? Y : N
@@ -11,7 +11,10 @@ type ShortEmitsToObject<E> = E extends Record<string, any[]> ? {
   [K in keyof E]: (...args: E[K]) => any;
 } : E
 
+export type ForwardedRef<T> = (instance: T | null) => void
+
 export interface ForwardRefRenderFunction<
+  T,
   P = {},
   E extends EmitsOptions | Record<string, any[]> = {},
   S extends Record<string, any> = any,
@@ -19,12 +22,17 @@ export interface ForwardRefRenderFunction<
   (
     props: P & EmitsToProps<EE>,
     ctx: Omit<SetupContext<EE, IfAny<S, {}, SlotsType<S>>>, 'expose'>,
-    forwardedRef: (ref: any) => void,
+    forwardedRef: ForwardedRef<T>,
   ): any
+  displayName?: string
+  inheritAttrs?: boolean
+  props?: never
+  emits?: never
+  slots?: never
 }
 
-export function forwardRef(renderFunction: ForwardRefRenderFunction) {
-  return defineComponent((props, ctx) => {
+export function forwardRef<T, P extends Record<string, any> = {}>(renderFunction: ForwardRefRenderFunction<T, P>) {
+  const Wrapped = defineComponent<P>((props, ctx) => {
     const currentInstance = getCurrentInstance()
     const forwardedRef = (ref: any) => {
       if (currentInstance) {
@@ -34,4 +42,9 @@ export function forwardRef(renderFunction: ForwardRefRenderFunction) {
     }
     return () => renderFunction(props, ctx, forwardedRef)
   })
+  Object.assign(Wrapped, {
+    displayName: renderFunction.displayName,
+    inheritAttrs: renderFunction.inheritAttrs,
+  })
+  return Wrapped
 }
